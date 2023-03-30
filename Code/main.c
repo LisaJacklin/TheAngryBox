@@ -12,14 +12,20 @@ Coded by: Lisa Jacklin
 
 void main(void)
 {
+//we might need to use IncrementVcore.c again in this, but first, test!
+
   //first, you must initialize the LCD screen
   halLcdInit();
   //then you must initialize the backlight
   halLcdBackLightInit();
 
   //now to set backlight level and contast level
-  halLcdSetBackLight();// this takes a unsigned char
-  halLcdSetContrast(); //also takes an unsigned char
+  //looks like the backlight is simply what makes it so the string is something we can see or not...
+  halLcdSetBackLight(3);// this takes a unsigned char
+  halLcdSetContrast(3); //also takes an unsigned char
+
+
+  halLcdPrint("Hello World",'A' );
 
   /*
   //Since we are trying to save power, there are several function prototypes to attempt and use
