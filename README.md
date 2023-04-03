@@ -14,11 +14,16 @@ This embedded system could come in handle with applicances that must remain in a
 
 
 ### Tasks and Expectations
-- []
-- []
-- []
-- []
+- [] Setting up the Accelerometer 
+- [] Transmit and recieve data from the accelerometer and the board
+- [] Read and record data before moving on to the next ISR or task
+- [] Setting up the LCD screen to display strings
+- [] adjust the LCD screen based on the ISR reached and the response that was given via the Accel. and User
+- [] Set the button to display a message to the LCD screen based on button press.
 
 
 ##### Weekly Breakdown and Progress
- 
+ - [] Week 1: 
+ - [] Week 2:
+ - [] Week 3:
+ - [] Week 4:
