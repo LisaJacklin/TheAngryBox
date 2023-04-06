@@ -1,0 +1,8 @@
+EE 443 Project Ideas/research questions
+- how to power the Accelerometer, through the MSP430
+	-> can we use Vcc on the board? or Vref/or Vcore?
+
+- accelerometer registers
+	-> how to send the correct addresses to the correct memory
+
+-I2C interfacing to research and test
