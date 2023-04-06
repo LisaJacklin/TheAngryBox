@@ -19,23 +19,22 @@ SYMBOLS BY NAME
     1c7d            ___end_IDATA0       
        0            ___end_THREAD       
     2b1a            ___end_UDATA0       
-    7208 CODE       ___int16_mul        
+    719e CODE       ___int16_mul        
     1c7c IDATA0     _backlight          
     5d46 CONST      _fonts              
     5cbc CONST      _fonts_lookup       
-    6f88 CODE       _halLcdActive       
-    6ee6 CODE       _halLcdBackLightInit
-    6ff2 CODE       _halLcdDrawBlock    
-    7008 CODE       _halLcdDrawCurrentBlock
-    6e56 CODE       _halLcdInit         
-    7086 CODE       _halLcdPrint        
-    6e14 CODE       _halLcdSendCommand  
-    6fb0 CODE       _halLcdSetAddress   
-    6f16 CODE       _halLcdSetBackLight 
-    6f60 CODE       _halLcdSetContrast  
+    6f1e CODE       _halLcdActive       
+    6eda CODE       _halLcdBackLightInit
+    6f88 CODE       _halLcdDrawBlock    
+    6f9e CODE       _halLcdDrawCurrentBlock
+    6e4a CODE       _halLcdInit         
+    701c CODE       _halLcdPrint        
+    6e08 CODE       _halLcdSendCommand  
+    6f46 CODE       _halLcdSetAddress   
+    6f0a CODE       _halLcdStandby      
     6dee CODE       _main               
-    721e CODE       _memcpy             
-    722e CODE       _memset             
+    71b4 CODE       _memcpy             
+    71c4 CODE       _memset             
     5cbc CONST      thread_init_begin   
     5cbc CONST      thread_init_end     
 
@@ -47,9 +46,9 @@ SYMBOLS BY VALUE
      4c0            ___crt_mpy          
      4c8            ___crt_op2          
      4ca            ___crt_reslo        
-    1c00            ___begin_IDATA0     
     1c00 IDATA0     _LcdInitMacro       
     1c00            ___RAM_Address      
+    1c00            ___begin_IDATA0     
     1c6c IDATA0     _Draw_Block_Value_Macro
     1c72 IDATA0     _Draw_Block_Address_Macro
     1c78 IDATA0     _LcdAddress         
@@ -60,22 +59,21 @@ SYMBOLS BY VALUE
     1c7e UDATA0     _LCD_MEM            
     2b1a            ___end_UDATA0       
     4000            ___RAM_Size         
-    5cbc CONST      thread_init_begin   
     5cbc CONST      _fonts_lookup       
     5cbc CONST      thread_init_end     
+    5cbc CONST      thread_init_begin   
     5d46 CONST      _fonts              
     659a CONST      _GrayScale_fonts    
     6dee CODE       _main               
-    6e14 CODE       _halLcdSendCommand  
-    6e56 CODE       _halLcdInit         
-    6ee6 CODE       _halLcdBackLightInit
-    6f16 CODE       _halLcdSetBackLight 
-    6f60 CODE       _halLcdSetContrast  
-    6f88 CODE       _halLcdActive       
-    6fb0 CODE       _halLcdSetAddress   
-    6ff2 CODE       _halLcdDrawBlock    
-    7008 CODE       _halLcdDrawCurrentBlock
-    7086 CODE       _halLcdPrint        
-    7208 CODE       ___int16_mul        
-    721e CODE       _memcpy             
-    722e CODE       _memset             
+    6e08 CODE       _halLcdSendCommand  
+    6e4a CODE       _halLcdInit         
+    6eda CODE       _halLcdBackLightInit
+    6f0a CODE       _halLcdStandby      
+    6f1e CODE       _halLcdActive       
+    6f46 CODE       _halLcdSetAddress   
+    6f88 CODE       _halLcdDrawBlock    
+    6f9e CODE       _halLcdDrawCurrentBlock
+    701c CODE       _halLcdPrint        
+    719e CODE       ___int16_mul        
+    71b4 CODE       _memcpy             
+    71c4 CODE       _memset             
