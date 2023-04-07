@@ -1,6 +1,6 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="LCDwISR" target="9" version="2">
-  <project Name="LCDwISR">
+<solution Name="LCDw2Buttons" target="9" version="2">
+  <project Name="LCDw2Buttons">
     <configuration
       Name="Common"
       Platform="MSP430"
@@ -16,9 +16,8 @@
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;h;s;asm;inc;s43" />
       <file file_name="main.c" />
-      <file file_name="../hal_lcd.h" />
-      <file file_name="../LCDlib.hza" />
-      <file file_name="../IncrementVcore.c" />
+      <file file_name="hal_lcd.h" />
+      <file file_name="LCDlib.hza" />
     </folder>
     <folder Name="System Files">
       <configuration Name="Common" filter="xml" />

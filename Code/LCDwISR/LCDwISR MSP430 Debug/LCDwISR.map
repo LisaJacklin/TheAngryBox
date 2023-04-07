@@ -1,0 +1,87 @@
+
+SYMBOLS BY NAME
+
+    1c72 IDATA0     _Draw_Block_Address_Macro
+    1c6c IDATA0     _Draw_Block_Value_Macro
+    65e2 CONST      _GrayScale_fonts    
+    5c00 ISR        _Interrupt_Button   
+    5c42 ISR        _Interrupt_TimerA1  
+    1c7e UDATA0     _LCD_MEM            
+    1c78 IDATA0     _LcdAddress         
+    1c00 IDATA0     _LcdInitMacro       
+    1c7a IDATA0     _LcdTableAddress    
+    1c00            ___RAM_Address      
+    4000            ___RAM_Size         
+    1c00            ___begin_IDATA0     
+       0            ___begin_THREAD     
+    1c7d            ___begin_UDATA0     
+     4c0            ___crt_mpy          
+     4c8            ___crt_op2          
+     4ca            ___crt_reslo        
+    1c7d            ___end_IDATA0       
+       0            ___end_THREAD       
+    2b1a            ___end_UDATA0       
+    7308 CODE       ___int16_mul        
+    1c7c IDATA0     _backlight          
+    5d8e CONST      _fonts              
+    5d04 CONST      _fonts_lookup       
+    6fda CODE       _halLcdActive       
+    6f4c CODE       _halLcdBackLightInit
+    70d8 CODE       _halLcdClearScreen  
+    7044 CODE       _halLcdDrawBlock    
+    705a CODE       _halLcdDrawCurrentBlock
+    6ebc CODE       _halLcdInit         
+    7186 CODE       _halLcdPrint        
+    6e7a CODE       _halLcdSendCommand  
+    7002 CODE       _halLcdSetAddress   
+    6f7c CODE       _halLcdSetBackLight 
+    6fc6 CODE       _halLcdStandby      
+    6e36 CODE       _main               
+    731e CODE       _memcpy             
+    732e CODE       _memset             
+    5d04 CONST      thread_init_begin   
+    5d04 CONST      thread_init_end     
+
+
+SYMBOLS BY VALUE
+
+       0            ___begin_THREAD     
+       0            ___end_THREAD       
+     4c0            ___crt_mpy          
+     4c8            ___crt_op2          
+     4ca            ___crt_reslo        
+    1c00 IDATA0     _LcdInitMacro       
+    1c00            ___begin_IDATA0     
+    1c00            ___RAM_Address      
+    1c6c IDATA0     _Draw_Block_Value_Macro
+    1c72 IDATA0     _Draw_Block_Address_Macro
+    1c78 IDATA0     _LcdAddress         
+    1c7a IDATA0     _LcdTableAddress    
+    1c7c IDATA0     _backlight          
+    1c7d            ___begin_UDATA0     
+    1c7d            ___end_IDATA0       
+    1c7e UDATA0     _LCD_MEM            
+    2b1a            ___end_UDATA0       
+    4000            ___RAM_Size         
+    5c00 ISR        _Interrupt_Button   
+    5c42 ISR        _Interrupt_TimerA1  
+    5d04 CONST      thread_init_end     
+    5d04 CONST      _fonts_lookup       
+    5d04 CONST      thread_init_begin   
+    5d8e CONST      _fonts              
+    65e2 CONST      _GrayScale_fonts    
+    6e36 CODE       _main               
+    6e7a CODE       _halLcdSendCommand  
+    6ebc CODE       _halLcdInit         
+    6f4c CODE       _halLcdBackLightInit
+    6f7c CODE       _halLcdSetBackLight 
+    6fc6 CODE       _halLcdStandby      
+    6fda CODE       _halLcdActive       
+    7002 CODE       _halLcdSetAddress   
+    7044 CODE       _halLcdDrawBlock    
+    705a CODE       _halLcdDrawCurrentBlock
+    70d8 CODE       _halLcdClearScreen  
+    7186 CODE       _halLcdPrint        
+    7308 CODE       ___int16_mul        
+    731e CODE       _memcpy             
+    732e CODE       _memset             
