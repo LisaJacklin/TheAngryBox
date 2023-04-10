@@ -1,4 +1,4 @@
-# TheAngryBox
+# TheAngryBox/ Reverse Bop-it
 ### EE 444: Embedded Systems
 
 ##### Team Members: 
