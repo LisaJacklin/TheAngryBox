@@ -1,0 +1,33 @@
+/* EE 444 Embedded Systems
+Project: Reverse Bop-it
+AccelBegin.c
+
+Objective: get the accelerometer to operate correctly and as expected for the 
+
+*/
+
+#include <msp430.h>
+
+void main(void)
+{
+//code chunk by Raskovic
+char readByte (char slave_add, char register_add) {
+  char rx_byte;
+
+  UCB012CSA = slave_add;
+  UCB0CTL1 |= UCTXSTT + UCTR;
+  UCB0TXBUF = register_add;
+  while (!(UCB0IFG & UCTXIFG));
+  while (UCB0CTL1 & UCTXSTT);
+  UCB0CTL1 |= UCTXSTT;
+  UCB0CTL1 &=~ UCTR;
+  UCB012CSA = slave_add;
+  while (UCB0CTL1 & UCTXSTT);
+  rx_byte = UCB0RXBUF;
+  UCB0CTL1 |= UCTXSTP;
+  while (UCB0CTL1 & UCTXSTP);
+  return rx_byte;
+}
+//End of code chunk by Raskovic
+
+}
