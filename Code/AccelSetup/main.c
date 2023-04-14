@@ -35,6 +35,8 @@ UCB1CTLW0 |= UCMODE_3 + UCMST; //SET TO I2C MODE AND MASTER MODE
 //NOW TO SETUP VALUES FOR DATA PROTOCOL
 
 //BAUD RATE
+UCB1BRW = ; //baud rate register.... probably have to go through this another way like in UART
+
 
 
 //////////SETTING UP THE SLAVE///////////////////
