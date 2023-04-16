@@ -20,10 +20,18 @@ This embedded system could come in handle with applicances that must remain in a
 - [x] Setting up the LCD screen to display strings
 - [x] adjust the LCD screen based on the ISR reached and the response that was given via the Accel. and User
 - [x] Set the button to display a message to the LCD screen based on button press.
+- [ ] setting up battery power
+- [ ] optimizing the reverse bop-it to last on battery power
+- [ ] calculatae how long the program lasts on battery power
+- [ ] creating a single master program including the LCd and accelerator program
 
 
 ##### Weekly Breakdown and Progress
  - [x] Week 1: planning out project and beginning research on peripheral sensors and the msp430f5438a LCD screen and header file included.
  - [x] Week 2: Got the LCD screen to operate both alone and with the inclusion of button ISR. No working program for the MSP430 and accelerometer together. Experiencing issues with I^2C communication.
- - [] Week 3:
+ - [x] Week 3: LCd is ready to integrate in with the acclerator program. Main program for both the LCd and accelerator code has been created. The accelerator connection through I2C is still not operational.
  - [] Week 4:
+
+###Changes for the Future
+- 
+- 
