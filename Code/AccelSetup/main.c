@@ -50,3 +50,6 @@ UCB1IE |= UCRXIE;
 _EINT();
 LPM0;
 }
+
+/////////////ISR FOR THE BUTTON////////////////
+
