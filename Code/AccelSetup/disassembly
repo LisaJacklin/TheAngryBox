@@ -1,0 +1,171 @@
+--- crt0.asm -- 44 -----------------------------------------
+; Executed upon reset
+__reset proc
+; Turn off watchdog. You can enable it in main() if required.
+mov.w #WDTPW+WDTHOLD, &WDTCTL
+    b240805a5c01        MOV.W     #0x5a80, &0x015c
+--- crt0.asm -- 49 -----------------------------------------
+; Set up stack.
+mov.w #___RAM_Address+___RAM_Size, sp
+    3140005c            MOV.W     #0x5c00, SP
+--- crt0.asm -- 67 -----------------------------------------
+ENDLINKIF
+; Zero the bss. Ensure the stack is not allocated in the bss!
+LINKIF SIZEOF(UDATA0)
+mov.w #SFB(UDATA0), r15
+    3f40001c            MOV.W     #0x1c00, R15
+mov.w #0, r14
+    0e43                CLR.W     R14
+mov.w #SFE(UDATA0)-SFB(UDATA0), r13
+    3d400100            MOV.W     #0x0001, R13
+callx #_memset
+    b013c25c            CALLA     #0x05cc2 <_memset>
+--- crt0.asm -- 79 -----------------------------------------
+mov.w #args, r14
+callx #_debug_getargs
+mov.w #args, r14
+#else
+mov.w #0, r15
+    0f43                CLR.W     R15
+mov.w #0, r14
+    0e43                CLR.W     R14
+--- crt0.asm -- 85 -----------------------------------------
+#endif
+; Call user entry point void main(void).
+callx #_main
+    b013225c            CALLA     #0x05c22 <_main>
+--- crt0.asm -- 93 -----------------------------------------
+mov r5, r15
+callx #_debug_exit
+#endif
+; If main() returns, kick off again.
+jmp __reset
+    ef3f                JMP       0x05c00 <__reset>
+--- accelerometerproject.c -- 9 ----------------------------
+
+//set up smclk for 4 kHz
+UCSCTL1 |= DCORSEL_2;
+    b2d020006201        BIS.W     #0x0020, &0x0162
+UCSCTL2 |= 61; // 2 MHz sorta
+    b2d03d006401        BIS.W     #0x003d, &0x0164
+--- accelerometerproject.c -- 15 ---------------------------
+UCSCTL3 |= SELREF__XT1CLK; //
+UCSCTL4 |= SELM__DCOCLK + SELS__DCOCLKDIV; //SMCLK SOURCED FROM XT1CLK
+    b2d043006801        BIS.W     #0x0043, &0x0168
+--- accelerometerproject.c -- 17 ---------------------------
+//FREQUENCY CHECKING
+P11DIR |= BIT1; //SET TO BE ABLE TO CHECK THE FREQUENCY
+    e2d3a402            BIS.B     #2, &0x02a4
+P11SEL |= BIT1;
+    e2d3aa02            BIS.B     #2, &0x02aa
+--- accelerometerproject.c -- 29 ---------------------------
+//P3SEL = (BIT1 + BIT2);
+//P3DIR |=BIT1; //TRANSMIT OR OUTPUT SDA PIN
+//P3DIR &=~ BIT2; //RECIEVE OR INPUT SCL PIN
+P3SEL |= BIT1 + BIT2; //select SDA and SCL (both either used as inputs or outputs) set up as input
+    f2d006002a02        BIS.B     #0x0006, &0x022a
+--- accelerometerproject.c -- 34 ---------------------------
+//P3REN |= BIT1 + BIT2; //set up pullup resistors for connecting to power supply (positive)
+P11SEL |= BIT2 + BIT1;
+    f2d00600aa02        BIS.B     #0x0006, &0x02aa
+P11DIR |= BIT2 + BIT1;
+    f2d00600a402        BIS.B     #0x0006, &0x02a4
+--- accelerometerproject.c -- 38 ---------------------------
+//Initializing the eUSCI_B module (pg. 1081 user manual)
+UCB0CTL1 |= UCSWRST; //ENABLE RESET
+    d2d3e005            BIS.B     #1, &0x05e0
+--- accelerometerproject.c -- 42 ---------------------------
+UCB0CTL0 |= UCMST + UCMODE_3 + UCSYNC;//set to master in I2C mode and synchronous, both adresses are 7 bits
+    f2d00f00e105        BIS.B     #0x000f, &0x05e1
+--- accelerometerproject.c -- 44 ---------------------------
+UCB0CTL1 |= UCSSEL_3; //smclk, reciever, acknowledge normally
+    f2d0c000e005        BIS.B     #0x00c0, &0x05e0
+--- accelerometerproject.c -- 46 ---------------------------
+UCB0BR0 |= 40; //baud rate = 50 kHz from 2 MHz
+    f2d02800e605        BIS.B     #0x0028, &0x05e6
+--- accelerometerproject.c -- 48 ---------------------------
+UCB0BR1 |= 0;
+UCB0CTL1 &= ~UCSWRST; // disable reset
+    d2c3e005            BIC.B     #1, &0x05e0
+    223c                JMP       0x05cae
+--- accelerometerproject.c -- 59 ---------------------------
+//transmit adresses//
+while (1) {
+//SINCE SA0 ON THE BOARD IS SET TO 1, THE ADDRESS IS 3B FOR THE SLAVE
+UCB0I2CSA = 0x1D; // write and SA0=1
+    b2401d00f205        MOV.W     #0x001d, &0x05f2
+UCB0CTL1 |= UCTXSTT + UCTR; //start condition generated and I2C transmit
+    f2d01200e005        BIS.B     #0x0012, &0x05e0
+UCB0TXBUF = 0x06; //address of the Z_LSB Register
+    f2400600ee05        MOV.B     #0x0006, &0x05ee
+--- accelerometerproject.c -- 66 ---------------------------
+while(!(UCB0IFG & UCTXIFG)); //wait for register address to be sent
+    e2b3fd05            BIT.B     #2, &0x05fd
+    fd27                JZ        0x05c7c
+while(UCB0CTL1 & UCTXSTT); //wait for start bit cleared
+    e2b3e005            BIT.B     #2, &0x05e0
+    fd23                JNZ       0x05c82
+--- accelerometerproject.c -- 69 ---------------------------
+//Recieve z-axis force//
+UCB0CTL1 |= UCTXSTT; //generate start again
+    e2d3e005            BIS.B     #2, &0x05e0
+UCB0CTL1 &= ~UCTR; //recieve mode
+    f2f0ef00e005        AND.B     #0x00ef, &0x05e0
+--- accelerometerproject.c -- 73 ---------------------------
+while(UCB0CTL1 & UCTXSTT); //wait for start bit cleared
+    e2b3e005            BIT.B     #2, &0x05e0
+    fd23                JNZ       0x05c92
+--- accelerometerproject.c -- 75 ---------------------------
+z = UCB0RXBUF; //read z-axis byte
+    d242ec05001c        MOV.B     &0x05ec, &0x1c00
+--- accelerometerproject.c -- 77 ---------------------------
+while(!(UCB0IFG & UCRXIFG)); //wait to recieve value
+    d2b3fd05            BIT.B     #1, &0x05fd
+    fd27                JZ        0x05c9e
+--- accelerometerproject.c -- 79 ---------------------------
+UCB0CTL1 |= UCTXSTP; //generate stop
+    e2d2e005            BIS.B     #4, &0x05e0
+--- accelerometerproject.c -- 81 ---------------------------
+while(UCB0CTL1 & UCTXSTT); //wait for stop to be sent
+    e2b3e005            BIT.B     #2, &0x05e0
+    fd23                JNZ       0x05ca8
+--- accelerometerproject.c -- 83 ---------------------------
+while (1) {
+    dd3f                JMP       0x05c6a
+    1001                RETA
+<_memcpy>
+    0c4f                MOV.W     R15, R12
+    033c                JMP       0x05cbc
+    fc4e0000            MOV.B     @R14+, 0x0000(R12)
+    1c53                ADD.W     #1, R12
+    1d83                SUB.W     #1, R13
+    fb2f                JC        0x05cb6
+    1001                RETA
+<_memset>
+    0c4f                MOV.W     R15, R12
+    033c                JMP       0x05ccc
+    cc4e0000            MOV.B     R14, 0x0000(R12)
+    1c53                ADD.W     #1, R12
+    1d83                SUB.W     #1, R13
+    fb2f                JC        0x05cc6
+    1001                RETA
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)
+    ffffffff            AND.B     @R15+, 0xffff(R15)

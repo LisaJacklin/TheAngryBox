@@ -35,6 +35,7 @@
  <Project>
   <ProjectSessionItem path="ReverseBop-it"/>
   <ProjectSessionItem path="ReverseBop-it;ReverseBop-it"/>
+  <ProjectSessionItem path="ReverseBop-it;ReverseBop-it;Source Files"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="CPU Registers/PC;CPU Registers/SP;CPU Registers/SR;CPU Registers/R4;CPU Registers/R5;CPU Registers/R6;CPU Registers/R7;CPU Registers/R8;CPU Registers/R9;CPU Registers/R10;CPU Registers/R11;CPU Registers/R12;CPU Registers/R13;CPU Registers/R14;CPU Registers/R15" binaryNodes="" asciiNodes="" openNodes="CPU Registers" name="LCDwISR" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -71,6 +72,8 @@
  <Watch4>
   <Watches active="0" update="Never"/>
  </Watch4>
- <Files/>
- <MSP430CrossStudioWindow activeProject="ReverseBop-it" fileDialogDefaultFilter="*" autoConnectTarget="MSP-FET430UIF(V3)" buildConfiguration="MSP430 Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Users/lmjacklin/Documents/GitHub/TheAngryBox/Code/LCDw2Buttons" debugSearchPath="" autoConnectCapabilities="528255"/>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="64" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="main.c" selected="1" top="33" codecName="Default"/>
+ </Files>
+ <MSP430CrossStudioWindow activeProject="ReverseBop-it" fileDialogDefaultFilter="*" autoConnectTarget="MSP-FET430UIF(V3)" buildConfiguration="MSP430 Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Users/lmjacklin/Documents/GitHub/TheAngryBox/Code" debugSearchPath="" autoConnectCapabilities="528255"/>
 </session>
