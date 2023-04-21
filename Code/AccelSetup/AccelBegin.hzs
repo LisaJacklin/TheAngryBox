@@ -71,7 +71,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="72" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="accelerometerproject.c" selected="1" top="53" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="104" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="accelerometerproject.c" selected="1" top="57" codecName="Default"/>
  </Files>
  <MSP430CrossStudioWindow activeProject="AccelBegin" fileDialogDefaultFilter="*.c" autoConnectTarget="MSP-FET430UIF(V3)" buildConfiguration="MSP430 Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Users/lmjacklin/Documents/GitHub/TheAngryBox/Code/AccelSetup" debugSearchPath="" autoConnectCapabilities="528255"/>
 </session>

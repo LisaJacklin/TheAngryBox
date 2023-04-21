@@ -10,8 +10,8 @@ SYMBOLS BY NAME
        0            ___end_THREAD       
     1c01            ___end_UDATA0       
     5c22 CODE       _main               
-    5cb6 CODE       _memcpy             
-    5cc6 CODE       _memset             
+    5cac CODE       _memcpy             
+    5cbc CODE       _memset             
     1c00 UDATA0     _z                  
     5c22 CONST      thread_init_begin   
     5c22 CONST      thread_init_end     
@@ -31,5 +31,5 @@ SYMBOLS BY VALUE
     5c22 CODE       _main               
     5c22 CONST      thread_init_begin   
     5c22 CONST      thread_init_end     
-    5cb6 CODE       _memcpy             
-    5cc6 CODE       _memset             
+    5cac CODE       _memcpy             
+    5cbc CODE       _memset             
