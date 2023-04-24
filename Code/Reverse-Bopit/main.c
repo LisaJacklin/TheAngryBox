@@ -12,19 +12,21 @@ Team Members:
 #include <msp430.h>
 #include <hal_lcd.h> //LCD library header file
 
-void main(void) {
-////////////////////LCD SCREEN SETUP//////////////////////////////
+char z; //z value (8-bits unsigned) for the z-axis of the accelerometer
 
+void main(void) {
+///////////////////SMCLK SETUP////////////////////////////////
+UCSCTL1 |= DCORSEL_2;
+UCSCTL2 |= 61; //2 MHz 
+UCSCTL3 |=SELREF_XT1CLK; //INTERNAL CRYSTAL NOT AS STABLE
+UCSCTL4 |= SELM__DCOKL +SELS__DCOCLKDIV;
+////////////////////LCD SCREEN SETUP//////////////////////////////
 halLcdInit();
 halLcdBackLightInit();
-
-//we had previously discussed adjusting this to work which can still be done, 
-//but power should be considered when doing this stuff.
 halLcdSetBackLight(10);
 
 //now to setup the lcd to be in standby so it can be used later in the ISR
 halLcdStandby();
-
 ////////////////////BUTTON SETUP//////////////////////////////
 
  //BUTTON SETUP
@@ -32,17 +34,34 @@ halLcdStandby();
     P2IE |= BIT7 + BIT6;                      // interrupts are allowed for this button                  
     P2REN = BIT7 + BIT6;                      //input with pull up resistor 
     P2OUT = BIT7 + BIT6;                      //also required to enable pull up resistor.
+//////////////////////SDA AND SCL BITS FOR ACCEL/////////////////
+P3SEL = (BIT1 + BIT2);
+P3DIR |= BIT1; //TRANSMIT OR OUTPUT SDA PIN
+P3DIR &=~ BIT2; //RECIEVE OR INPUT SCL PIN
 
- //FLASHING LED TO TEST THE ISR BEFORE/DURING LCD SCREEN WORK
-  P1DIR |= BIT0;                             //pin set to output 
-  P1SEL &= ~BIT0;                            //set pin to I/O mode
-
-
-///////////////INITIATING THE CLOCK /////////////////////
-
+/////////////////////LEDS AS CHECKING////////////////////////
+//LED FOR ACCELEROMETER
+P1DIR |=BIT1;
+P1OUT &=~BIT1;
+//FOR BUTTON INPUT
+P1DIR |= BIT0;                           
+P1SEL &= ~BIT0;                          
 /////////////SETTING UP THE SLAVE/MASTER //////////////////
+UCB0CTL1 |= UCSWRST; 
 
+UCB0CTL0 |= UCMST +UCMODE_3 + UCSYNC; //MASTER, I2C MODE, SYNC
+//NOTE 7-BIT ADDRESS DEFAULT
+UCB0CTL1 |= UCSSEL_3; //SMCLK
+
+//BAUD RATE SET TO 20KHz
+UCB0BR0 |=1000;
+UCB0BR1 |=0;
+
+UCB0CTL1 &=~ UCSWRST;
 ////////////INTERRUPTS AND POWER MODE ENABLES/////////////
+
+//UCB0IE = UCRXIE + UCTXIE; //INTERRUPTS FOR I2C
+
  _EINT();
  LPM0;
 }

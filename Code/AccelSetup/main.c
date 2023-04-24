@@ -1,58 +1,122 @@
-/* EE 444 Embedded Systems
-Project: Reverse Bop-it
-AccelBegin.c
-
-Objective: get the accelerometer to operate correctly and as expected for the 
-
-*/
-
 #include <msp430.h>
 
-void main(void)
+//variable to store value from z-component of accelerometer
+char z; // Z value(8-bits unsigned)
+
+void
+main(void)
 {
-////////////setting up clock rates///////////////////
-UCSCTL1 = DCORSEL_3; //FREQUENCY RANGE TO INCLUDE 2MHZ WITHOUT VCORE
-UCSCTL2 = 61; //DIVIDER VALUE
-P7SEL |= (BIT0 + BIT1); //EXTERNAL XT1 IN USE
-UCSCTL3 = 0; //USING THE EXTERNAL CCRYSTAL ASS THE REFERENCE CLOCK
+UCSCTL1 |= DCORSEL_2;
+UCSCTL2 |= 61;                 	// 2 MHz sorta
+UCSCTL3 |= SELREF__XT1CLK; 	//  
+UCSCTL4 |= SELM__DCOCLK + SELS__DCOCLKDIV;	//SMCLK SOURCED FROM XT1CLK
 
-UCSCTL4 = SELS_3 + SELM_3; //SET TO REFERENCE 
+//current: depends on ODR (50 Hz) --> 24 uA = Idd
 
-   do {
-      UCSCTL7 &= ~(XT1LFOFFG + DCOFFG);                   //clear the XT1 and DCO flags
-      SFRIFG1 &= ~OFIFG;                                  //clear the OSC fault flag
-      } while ((SFRIFG1 & OFIFG));
+//output data rates (ODR): register 0x2A where DR[0:2]=100 (50 Hz or 20 ms) or bits 3 through 5
 
-   UCSCTL6 &= ~XT1OFF;                            //MAKES SURE THAT THIS EXTERNAL CLOCK IS ON
+//select SCL and SDA bits
 
-   //CHECK TO MAKE SURE THAT THE FREQUENCY IS CORRECT BEFORE CONTINUING ON
+//new forma for SDA AND SCL bits
+P3SEL = (BIT1 + BIT2);
+P3DIR |=BIT1; //TRANSMIT OR OUTPUT SDA PIN
+P3DIR &=~ BIT2; //RECIEVE OR INPUT SCL PIN
 
+/////////// LED!!!!
+P1DIR |= BIT1;	// set up LED
+P1OUT &= ~BIT1;
 
-////////////////////////////////////////////////////
-///////SINCE WE HAVE TO SET UP THE USCI/I2C MODULE TO WORK WITH THE ACCELERATOR//////////////
-UCB1CTL0 |= UCSWRST;  //STARTS THE SET STATE
+//Initializing the eUSCI_B module (pg. 1081 user manual)
 
-//////BEGINNING WITH THE MASTER/////////////
-/////////PINS FOR THE TRANSMIT AND RETRIEVAL
-UCB1CTLW0 |= UCMODE_3 + UCMST; //SET TO I2C MODE AND MASTER MODE
+UCB0CTL1 |= UCSWRST;	//ENABLE RESET
 
-//NOW TO SETUP VALUES FOR DATA PROTOCOL
+UCB0CTL0 |= UCMST + UCMODE_3 + UCSYNC;//set to master in I2C mode and synchronous, both adresses are 7 bits
 
-//BAUD RATE
-UCB1BRW = ; //baud rate register.... probably have to go through this another way like in UART
+UCB0CTL1 |= UCSSEL_3;  //smclk, reciever, acknowledge normally
 
-UCB1CTLW1 = UCASTP_2; //STOP ASSERTION
-UCB1TBCNT = 0X07; //SEVEN BYTES OF DATA TO TRANSMIT
-UCB1I2CSA = 0X0012; //ADDRESS OF THE SLAVE (CHECK IN THE ACCELEROMETER DATASHEET)
+UCB0BR0 |= 1000; //baud rate = 20 kHz from 2 MHz
+UCB0BR1 |= 0;
 
-P2EL |= 0X03; //CONFIGUURE I2C PINS (THIS IS DEVICE SPECIFIC SO CHECK THIS!)
+UCB0CTL1 &= ~UCSWRST;	// disable reset
 
-UCB1CTL1 &=~UCSWRST; //NOW WE ARE IN THE RESET STATE.
+//UCB0IE = UCRXIE + UCTXIE;  //enable interrupt for reciever and I2C
 
-////////////////////////////////////////////
-_EINT();
-LPM0;
+//set up accelerometer registers
+
+  // sysmod wake mode
+
+ ///////// Active Mode:
+
+UCB0CTL1 |= UCTR;//start condition generated and I2C transmit
+UCB0I2CSA = 0x1D;  	// slave address and SA0=1
+UCB0CTL1 |= UCTXSTT;
+UCB0TXBUF = 0x2A; //address of CTRL_REG1 Register
+
+while(UCB0CTL1 & UCTXSTT);  //wait for start bit cleared
+while(!(UCB0IFG & UCTXIFG));  //wait for register address to be sent
+ 
+
+//still in transmit mode
+// don't need to restart
+
+UCB0TXBUF = 0x01; //active mode of CTRL_REG1 Register
+
+while(!(UCB0IFG & UCTXIFG));  //wait to write value
+
+UCB0CTL1 |= UCTXSTP;  //generate stop
+
+while(UCB0CTL1 & UCTXSTT);  //wait for stop to be sent
+
+//////////  Message:
+
+//transmit adresses//
+
+while(1) {
+
+while((UCB0STAT & UCBBUSY));	// wait for bus to stop being busy
+
+//SINCE SA0 ON THE BOARD IS SET TO 1, THE ADDRESS IS 3B FOR THE SLAVE
+UCB0CTL1 |= UCTR;//start condition generated and I2C transmit
+UCB0I2CSA = 0x1D;  	// write and SA0=1
+UCB0CTL1 |= UCTXSTT;
+UCB0TXBUF = 0x05; //address of the Z_LSB Register
+
+while(UCB0CTL1 & UCTXSTT);  //wait for start bit cleared
+while(!(UCB0IFG & UCTXIFG));  //wait for register address to be sent
+//Recieve z-axis force//
+
+//while((UCB0STAT & UCBBUSY));	// wait for bus to stop being busy
+
+UCB0CTL1 &= ~UCTR; //recieve mode
+UCB0CTL1 |= UCTXSTT;  //generate start again
+
+while(UCB0CTL1 & UCTXSTT);  //wait for start bit cleared  //also when RXBUF is set
+
+//while(!(UCB0IFG & UCRXIFG));  //wait to recieve value
+
+z = UCB0RXBUF;  //read z-axis byte
+
+UCB0CTL1 |= UCTXSTP;  //generate stop
+
+while(UCB0CTL1 & UCTXSTT);  //wait for stop to be sent
+
+if ((z < 40) & (z > 0)) {
+
+P1OUT |= BIT1; 	//LED
+
+}
+else {
+P1OUT &= ~BIT1;
+}
 }
 
-/////////////ISR FOR THE BUTTON////////////////
+
+
+}
+
+
+
+
+
+
 
