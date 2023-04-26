@@ -16,8 +16,9 @@
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;h;s;asm;inc;s43" />
       <file file_name="main.c" />
-      <file file_name="../hal_lcd.h" />
+      <file file_name="hal_lcd.h" />
       <file file_name="../LCDlib.hza" />
+      <file file_name="../IncrementVcore.c" />
     </folder>
     <folder Name="System Files">
       <configuration Name="Common" filter="xml" />

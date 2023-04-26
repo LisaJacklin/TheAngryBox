@@ -1,0 +1,133 @@
+
+SYMBOLS BY NAME
+
+    1c87 IDATA0     _Draw_Block_Address_Macro
+    1c81 IDATA0     _Draw_Block_Value_Macro
+    67a6 CONST      _GrayScale_fonts    
+    70dc CODE       _IncrementVcore     
+    5c00 ISR        _Interrupt_Button   
+    1ca0 UDATA0     _LCD_MEM            
+    1c8e IDATA0     _LcdAddress         
+    1c15 IDATA0     _LcdInitMacro       
+    1c90 IDATA0     _LcdTableAddress    
+    1c00            ___RAM_Address      
+    4000            ___RAM_Size         
+    1c00            ___begin_IDATA0     
+       0            ___begin_THREAD     
+    1c93            ___begin_UDATA0     
+     4c0            ___crt_mpy          
+     4d2            ___crt_mpy32h       
+     4d0            ___crt_mpy32l       
+     4c8            ___crt_op2          
+     4e2            ___crt_op2h         
+     4e0            ___crt_op2l         
+     4e8            ___crt_res2         
+     4ea            ___crt_res3         
+     4ca            ___crt_reslo        
+    1c93            ___end_IDATA0       
+       0            ___end_THREAD       
+    2b3c            ___end_UDATA0       
+    76ea CODE       ___float32_mul      
+    77f8 CODE       ___float32_to_int16 
+    7650 CODE       ___int16_div        
+    7676 CODE       ___int16_mod        
+    769c CODE       ___int16_mul        
+    77c2 CODE       ___int16_to_float32 
+    76b2 CODE       ___uint16_div       
+    77ce CODE       ___uint16_to_float32
+    77d8 CODE       ___uint16_to_float32_aux
+    1c9c UDATA0     _angle              
+    1c92 IDATA0     _backlight          
+    5f52 CONST      _fonts              
+    5ec8 CONST      _fonts_lookup       
+    72f2 CODE       _halLcdActive       
+    7250 CODE       _halLcdBackLightInit
+    73f0 CODE       _halLcdClearScreen  
+    735c CODE       _halLcdDrawBlock    
+    7372 CODE       _halLcdDrawCurrentBlock
+    71c0 CODE       _halLcdInit         
+    749e CODE       _halLcdPrint        
+    7620 CODE       _halLcdPrintLine    
+    717e CODE       _halLcdSendCommand  
+    731a CODE       _halLcdSetAddress   
+    7280 CODE       _halLcdSetBackLight 
+    72ca CODE       _halLcdSetContrast  
+    1c98 UDATA0     _m                  
+    6ffa CODE       _main               
+    76ca CODE       _memcpy             
+    76da CODE       _memset             
+    1c00 IDATA0     _msg                
+    1c0b IDATA0     _msg2               
+    1c9a UDATA0     _n                  
+    5c22 ISR        _timerA             
+    1c9e UDATA0     _z                  
+    1c94 UDATA0     _z1                 
+    5ec8 CONST      thread_init_begin   
+    5ec8 CONST      thread_init_end     
+
+
+SYMBOLS BY VALUE
+
+       0            ___begin_THREAD     
+       0            ___end_THREAD       
+     4c0            ___crt_mpy          
+     4c8            ___crt_op2          
+     4ca            ___crt_reslo        
+     4d0            ___crt_mpy32l       
+     4d2            ___crt_mpy32h       
+     4e0            ___crt_op2l         
+     4e2            ___crt_op2h         
+     4e8            ___crt_res2         
+     4ea            ___crt_res3         
+    1c00            ___RAM_Address      
+    1c00            ___begin_IDATA0     
+    1c00 IDATA0     _msg                
+    1c0b IDATA0     _msg2               
+    1c15 IDATA0     _LcdInitMacro       
+    1c81 IDATA0     _Draw_Block_Value_Macro
+    1c87 IDATA0     _Draw_Block_Address_Macro
+    1c8e IDATA0     _LcdAddress         
+    1c90 IDATA0     _LcdTableAddress    
+    1c92 IDATA0     _backlight          
+    1c93            ___begin_UDATA0     
+    1c93            ___end_IDATA0       
+    1c94 UDATA0     _z1                 
+    1c98 UDATA0     _m                  
+    1c9a UDATA0     _n                  
+    1c9c UDATA0     _angle              
+    1c9e UDATA0     _z                  
+    1ca0 UDATA0     _LCD_MEM            
+    2b3c            ___end_UDATA0       
+    4000            ___RAM_Size         
+    5c00 ISR        _Interrupt_Button   
+    5c22 ISR        _timerA             
+    5ec8 CONST      _fonts_lookup       
+    5ec8 CONST      thread_init_end     
+    5ec8 CONST      thread_init_begin   
+    5f52 CONST      _fonts              
+    67a6 CONST      _GrayScale_fonts    
+    6ffa CODE       _main               
+    70dc CODE       _IncrementVcore     
+    717e CODE       _halLcdSendCommand  
+    71c0 CODE       _halLcdInit         
+    7250 CODE       _halLcdBackLightInit
+    7280 CODE       _halLcdSetBackLight 
+    72ca CODE       _halLcdSetContrast  
+    72f2 CODE       _halLcdActive       
+    731a CODE       _halLcdSetAddress   
+    735c CODE       _halLcdDrawBlock    
+    7372 CODE       _halLcdDrawCurrentBlock
+    73f0 CODE       _halLcdClearScreen  
+    749e CODE       _halLcdPrint        
+    7620 CODE       _halLcdPrintLine    
+    7650 CODE       ___int16_div        
+    7676 CODE       ___int16_mod        
+    769c CODE       ___int16_mul        
+    76b2 CODE       ___uint16_div       
+    76ca CODE       _memcpy             
+    76da CODE       _memset             
+    76ea CODE       ___float32_mul      
+    77c2 CODE       ___int16_to_float32 
+    77ce CODE       ___uint16_to_float32
+    77d8 CODE       ___uint16_to_float32_aux
+    77f8 CODE       ___float32_to_int16 

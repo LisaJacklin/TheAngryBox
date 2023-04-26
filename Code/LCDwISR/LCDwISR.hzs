@@ -66,7 +66,7 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../hal_lcd.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="75" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="main.c" selected="1" top="42" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="main.c" selected="1" top="32" codecName="Default"/>
  </Files>
- <MSP430CrossStudioWindow activeProject="LCDwISR" fileDialogDefaultFilter="*" autoConnectTarget="MSP-FET430UIF(V3)" buildConfiguration="MSP430 Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Users/lmjacklin/Documents/GitHub/TheAngryBox/Code" debugSearchPath="" autoConnectCapabilities="528255"/>
+ <MSP430CrossStudioWindow activeProject="LCDwISR" fileDialogDefaultFilter="*" autoConnectTarget="MSP-FET/MSP-FET430UIF/eZ-FET" buildConfiguration="MSP430 Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Users/lmjacklin/Documents/GitHub/TheAngryBox/Code" debugSearchPath="" autoConnectCapabilities="528255"/>
 </session>
