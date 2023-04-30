@@ -14,14 +14,14 @@ This embedded system could come in handle with applicances that must remain in a
 
 
 ### Tasks and Expectations
-- [] Setting up the Accelerometer 
+- [x] Setting up the Accelerometer 
 - [x] Transmit and recieve data from the accelerometer and the board
-- [] Read and record data before moving on to the next ISR or task
+- [x] Read and record data before moving on to the next ISR or task
 - [x] Setting up the LCD screen to display strings
 - [x] adjust the LCD screen based on the ISR reached and the response that was given via the Accel. and User
 - [x] Set the button to display a message to the LCD screen based on button press.
 - [ ] setting up battery power
-- [ ] calculate how long the program lasts on battery power
+- [x] calculate how long the program lasts on battery power
 - [x] creating a single master program including the LCD and accelerator program
 
 
